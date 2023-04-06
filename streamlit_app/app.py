@@ -21,13 +21,13 @@ uploaded_file = st.file_uploader("Choose your photo...")
 #live time video
 st.header("Live Camera")
 
-# run = st.button('Run')
-# FRAME_WINDOW = st.image([])
+run = st.button('Run')
+FRAME_WINDOW = st.image([])
 
 # else:
 #         st.write('Stopped')
 
-vid = cv2.VideoCapture(1)
+vid = cv2.VideoCapture(0)
 
 st.title( 'Using Mobile Camera with Streamlit' )
 frame_window = st.image( [] )
