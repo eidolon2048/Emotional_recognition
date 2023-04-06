@@ -39,7 +39,7 @@ RTC_CONFIGURATION = RTCConfiguration(
 )
 
 
-cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+#cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 # class VideoProcessor:
 # 	def recv(self, frame):
