@@ -20,12 +20,14 @@ uploaded_file = st.file_uploader("Choose your photo...")
 
 #live time video
 st.header("Live Camera")
-
+vid = cv2.VideoCapture(1)
 run = st.button('Run')
 FRAME_WINDOW = st.image([])
 
 # else:
 #         st.write('Stopped')
+
+
 
 vid = cv2.VideoCapture(0)
 
