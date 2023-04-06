@@ -6,6 +6,7 @@ import pandas as pd
 from tensorflow import keras
 from keras.models import model_from_json
 from keras.utils import img_to_array
+import av
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfiguration, VideoProcessorBase, WebRtcMode
 
 
@@ -31,20 +32,59 @@ st.header("Live Camera")
 
 
 
-img_file_buffer = st.camera_input("Take a picture")
 
-if img_file_buffer is not None:
-    # To read image file buffer with OpenCV:
-    bytes_data = img_file_buffer.getvalue()
-    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
 
-    # Check the type of cv2_img:
-    # Should output: <class 'numpy.ndarray'>
-    st.write(type(cv2_img))
 
-    # Check the shape of cv2_img:
-    # Should output shape: (height, width, channels)
-    st.write(cv2_img.shape)
+
+cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+
+class VideoProcessor:
+	def recv(self, frame):
+		frm = frame.to_ndarray(format="bgr24")
+
+		faces = cascade.detectMultiScale(cv2.cvtColor(frm, cv2.COLOR_BGR2GRAY), 1.1, 3)
+
+		for x,y,w,h in faces:
+			cv2.rectangle(frm, (x,y), (x+w, y+h), (0,255,0), 3)
+
+		return av.VideoFrame.from_ndarray(frm, format='bgr24')
+
+webrtc_streamer(key="key", video_processor_factory=VideoProcessor,
+				rtc_configuration=RTCConfiguration(
+					{"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+					)
+	)
+
+
+
+
+
+
+
+
+
+
+# img_file_buffer = st.camera_input("Take a picture")
+
+# if img_file_buffer is not None:
+#     # To read image file buffer with OpenCV:
+#     bytes_data = img_file_buffer.getvalue()
+#     cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+
+#     # Check the type of cv2_img:
+#     # Should output: <class 'numpy.ndarray'>
+#     st.write(type(cv2_img))
+
+#     # Check the shape of cv2_img:
+#     # Should output shape: (height, width, channels)
+#     st.write(cv2_img.shape)
+
+
+
+
+
+
+
 
 
 

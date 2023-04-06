@@ -4,3 +4,4 @@ opencv-python-headless
 pandas
 tensorflow
 streamlit_webrtc
+av
