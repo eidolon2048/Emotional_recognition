@@ -27,7 +27,7 @@ st.header("Live Camera")
 # else:
 #         st.write('Stopped')
 
-vid = cv2.VideoCapture( 'http://<network_ip_Address>:8080/video' )
+vid = cv2.VideoCapture(1)
 
 st.title( 'Using Mobile Camera with Streamlit' )
 frame_window = st.image( [] )
