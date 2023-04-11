@@ -5,3 +5,4 @@ pandas
 tensorflow
 streamlit_webrtc
 av
+matplotlib
