@@ -6,3 +6,4 @@ from matplotlib import pyplot
 st.header("Emotional recognition :scream_cat:")
 st.write("Choose any image and get your emotion:")
 uploaded_file = st.file_uploader("Choose an image...")
+
